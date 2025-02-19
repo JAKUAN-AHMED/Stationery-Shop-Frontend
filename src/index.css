@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... */
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-orbitron);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: white;
+}
+
+@theme {
+  --font-family-orbitron: "Orbitron", sans-serif;
+
+  --color-primary-text: #02213a;
+  --color-primary-bg: #f7f7f7;
+  --color-foreground: #666666;
+  --color-secondary: #e85069;
+  --color-accent: #f59e0b;
+}
+
+/* dashboard scrollbar hide */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.swiper-pagination {
+  display: none !important;
+}
+
