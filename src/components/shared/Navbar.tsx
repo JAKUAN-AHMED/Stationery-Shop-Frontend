@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
+import { Menu, X, ShoppingCart, User } from "lucide-react";
 import logo from "./../../assets/images/logo.svg";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -52,13 +52,12 @@ const Navbar = () => {
     name:"John Doe",
     email:"jakuanultimate777@gmail.com",
     role:"admin",
-    iat:1633700000,
-    exp:1633700000,
-  }
+    iat:163234234,
+  };
 
   const [position, setPosition] =useState("bottom");
   return (
-    <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white fixed font-orbitron border-2 border-radius-2xl shadow-lg z-10 w-full">
+    <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white  font-orbitron border-2 border-radius-2xl shadow-lg z-10 w-full">
       {/* Container */}
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
@@ -76,7 +75,7 @@ const Navbar = () => {
             placeholder="Search"
             className="w-full bg-white rounded-full pl-4 pr-10 border-none"
           />
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600" />
+          {/* <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600" /> */}
         </div>
 
         {/* Icons and Menu */}
@@ -172,10 +171,13 @@ const Navbar = () => {
         </div>
 
         <div>
-         <Mode_toggler></Mode_toggler>
+          <Mode_toggler></Mode_toggler>
         </div>
       </div>
 
+
+
+          
       {/* mobile */}
       {isOpen && (
         <div className="lg:hidden bg-white shadow-md">
@@ -186,7 +188,7 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/product"
+            to="/all-product"
             className="block py-2 px-4 text-[10px] hover:bg-gray-200"
           >
             Products
@@ -199,6 +201,20 @@ const Navbar = () => {
           </Link>
         </div>
       )}
+
+      <div>
+        <div className="bg-orange-200 hidden space-x-2 p-2 md:flex items-center justify-center text-black">
+          <Button className="bg-blue-200">
+            <Link to={"/"}>Home</Link>
+          </Button>
+          <Button className="bg-blue-200">
+            <Link to={"/all-product"}>Products</Link>
+          </Button>
+          <Button className="bg-blue-200">
+            <Link to={"/about"}>About</Link>
+          </Button>
+        </div>
+      </div>
     </nav>
   );
 };
