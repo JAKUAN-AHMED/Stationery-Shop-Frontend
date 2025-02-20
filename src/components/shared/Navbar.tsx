@@ -79,9 +79,9 @@ const Navbar = () => {
         </div>
 
         {/* Icons and Menu */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center md:space-x-4">
           <Link to="/cart" className="relative">
-            <ShoppingCart size={24} />
+            <ShoppingCart size={20} />
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               0
             </span>
