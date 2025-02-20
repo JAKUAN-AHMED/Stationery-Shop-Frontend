@@ -5,11 +5,60 @@ import logo from "./../../assets/images/logo.svg";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
+import { DropdownMenu, DropdownMenuContent,  DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { BiLogOut } from "react-icons/bi";
+import {MdOutlineSpaceDashboard } from "react-icons/md";
+import { RiLoginBoxLine } from "react-icons/ri";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import Mode_toggler from "../mode-toggler/mode_toggler";
+
+// import { useAppSelector } from "@/redux/hooks";
+// import { useCurrentToken } from "@/redux/features/auth/authSlice";
+// import { useGetMeQuery } from "@/redux/features/auth/authApi";
+// import { verifyToken } from "@/utils/verifyToken";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  
+  // const token=useAppSelector(useCurrentToken);
+  // const cartData=useAppSelector(state=>state.cart);
+
+  // const {data:myData}=useGetMeQuery(undefined);
+  // console.log(myData);
+  // const name=myData?.data?.name;
+
+  // let initials:string="";
+  // if(name){
+  //   const names=name.split(" ");
+  //   const firtPart=names[0].charAt(0);
+  //   const lastPart=names[firtPart.length-1].charAt(0);
+  //   initials=`${firtPart}${lastPart
+  //   }`;
+  // }
+  // // check user exist or not
+  // let user:any;
+  // if(token){
+  //   user=verifyToken(token);
+  // }
+
+  // const userBaseCartsProducts=cartData?.items.filter((item)=>item.userEmail===user?.email);
+
+
+  // const dashboardLink=user?.role==="admin"? "/dashboard/admin-dashboard":user?.role==="user"?"/dashboard/profile":"/";
+
+
+  const user2={
+    name:"John Doe",
+    email:"jakuanultimate777@gmail.com",
+    role:"admin",
+    iat:1633700000,
+    exp:1633700000,
+  }
+
+  const [position, setPosition] =useState("bottom");
   return (
-    <nav className="bg-gray-200 fixed font-orbitron border-2 border-radius-2xl shadow-lg z-10 w-full">
+    <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white fixed font-orbitron border-2 border-radius-2xl shadow-lg z-10 w-full">
       {/* Container */}
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
@@ -35,18 +84,95 @@ const Navbar = () => {
           <Link to="/cart" className="relative">
             <ShoppingCart size={24} />
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              2
+              0
             </span>
           </Link>
 
-          <Link to="/login">
-            <User size={24} />
-          </Link>
+          {user2 ? (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">
+                    <User size={28} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 font-orbitron">
+                  {/* <DropdownMenuLabel className="mt-2">Panel Position</DropdownMenuLabel> */}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuRadioGroup
+                    value={position}
+                    onValueChange={setPosition}
+                  >
+                    <DropdownMenuRadioItem value="left">
+                      {/* log in */}
+                      <Button variant={"outline"}>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              {/* <BiLogOut /> */}
+                              <RiLoginBoxLine className="text-blue-700" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="font-bold font-orbitron">
+                                Register
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </Button>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="bottom">
+                      {/* dashboard */}
+
+                      <Button variant={"outline"}>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <MdOutlineSpaceDashboard className="text-blue-700" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="font-bold font-orbitron">
+                                Dashboard
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </Button>
+                    </DropdownMenuRadioItem>
+
+                    <DropdownMenuRadioItem value="right">
+                      {/* log out */}
+                      <Button variant={"outline"}>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <BiLogOut className="text-blue-800" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="font-bold font-orbitron">Log Out</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </Button>
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <Link to="/login">
+              <User size={24} />
+            </Link>
+          )}
 
           {/* Mobile Menu Button */}
           <Button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </Button>
+        </div>
+
+        <div>
+         <Mode_toggler></Mode_toggler>
         </div>
       </div>
 
