@@ -48,16 +48,18 @@ const Navbar = () => {
   // const dashboardLink=user?.role==="admin"? "/dashboard/admin-dashboard":user?.role==="user"?"/dashboard/profile":"/";
 
 
-  const user2={
-    name:"John Doe",
-    email:"jakuanultimate777@gmail.com",
-    role:"admin",
-    iat:163234234,
-  };
+  // let user2={
+  //   name:"John Doe",
+  //   email:"jakuanultimate777@gmail.com",
+  //   role:"admin",
+  //   iat:163234234,
+  // };
+  // user2=null;
+  const user2=null;
 
   const [position, setPosition] =useState("bottom");
   return (
-    <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white  font-orbitron border-2 border-radius-2xl shadow-lg z-10 w-full">
+    <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white  font-orbitron border-2 border-radius-2xl  overflow-hidden shadow-lg z-10 w-full">
       {/* Container */}
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
@@ -159,7 +161,7 @@ const Navbar = () => {
               </DropdownMenu>
             </div>
           ) : (
-            <Link to="/login">
+            <Link to="/register">
               <User size={24} />
             </Link>
           )}

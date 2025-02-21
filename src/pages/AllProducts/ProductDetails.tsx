@@ -9,9 +9,9 @@ const ProductDetails = () => {
     const {id}=useParams();
     const product = productData?.data?.filter((product: TProducts) => product._id === id);
     return (
-        <div className="container mx-auto mt-7 mb-8">
+        <div className="container mx-auto mt-7 overflow-hidden mb-8">
            {
-            product?.map((details:any)=>{
+            product?.map((details)=>{
                 return <ProductCard product={details} key={details._id}/>
             })
            }
