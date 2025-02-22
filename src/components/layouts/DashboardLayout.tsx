@@ -7,19 +7,25 @@ import {
   SendToBack,
   FolderKanban,
   LogOut,
+  HomeIcon,
 } from "lucide-react";
 import ManageUsers from "@/pages/admin/ManageUsers";
 import AddProducts from "@/pages/admin/AddProducts";
 import ManageOrders from "@/pages/admin/ManageOrders";
 import ManageProducts from "@/pages/admin/ManageProducts";
-
-// Import your different content components
-
+import Home from "@/pages/Home/Home";
+import { useAppDispatch } from "@/redux/hooks";
+import { logOut } from "@/redux/features/auth/authSlice";
 
 const { Content, Sider } = Layout;
 
 const DashboardLayout: FC = () => {
   const [selectedKey, setSelectedKey] = useState("1"); // Track selected menu key
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -28,33 +34,33 @@ const DashboardLayout: FC = () => {
   const menuItems = [
     {
       key: "1",
+      icon: <HomeIcon />,
+      label: "Home",
+      component: <Home />,
+    },
+    {
+      key: "2",
       icon: <UserRoundPen />,
       label: "Manage Users",
       component: <ManageUsers />,
     },
     {
-      key: "2",
+      key: "3",
       icon: <FilePlus />,
       label: "Add Product",
       component: <AddProducts />,
     },
     {
-      key: "3",
+      key: "4",
       icon: <SendToBack />,
       label: "Manage Orders",
       component: <ManageOrders />,
     },
     {
-      key: "4",
+      key: "5",
       icon: <FolderKanban />,
       label: "Manage Products",
       component: <ManageProducts />,
-    },
-    {
-      key: "5",
-      icon: <LogOut />,
-      label: "Logout",
-      component: <div>Logging out...</div>,
     },
   ];
 
@@ -71,14 +77,23 @@ const DashboardLayout: FC = () => {
           theme="dark"
           mode="inline"
           className="font-orbitron text-[10px]"
-          defaultSelectedKeys={["1"]}
-          onClick={(e) => setSelectedKey(e.key)}
+          selectedKeys={[selectedKey]}
+          onClick={(e) => {
+            if (e.key === "logout") {
+              handleLogOut();
+            } else {
+              setSelectedKey(e.key);
+            }
+          }}
         >
           {menuItems.map((item) => (
             <Menu.Item key={item.key} icon={item.icon}>
               {item.label}
             </Menu.Item>
           ))}
+          <Menu.Item key="logout" icon={<LogOut />} danger>
+            Logout
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
@@ -92,7 +107,7 @@ const DashboardLayout: FC = () => {
               marginTop: "1rem",
             }}
           >
-            {selectedComponent} {/* Show the selected component */}
+            {selectedComponent}
           </div>
         </Content>
         <Footer />

@@ -2,9 +2,18 @@ import { ShoppingCart, Zap } from "lucide-react";
 import { toast } from "sonner";
 import moment from "moment";
 import { Button } from "../ui/button";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useCurrentToken } from "@/redux/features/auth/authSlice";
+import { verifyToken } from "@/utils/verifyToken";
+import { addToCart } from "@/redux/features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
+interface DecodedToken {
+  role: string;
+  email?: string;
+}
 const ProductCard = ({ product }:{product:Record<string,any>}) => {
-    // console.log(product,'productCard');
+   
+    const navigate=useNavigate();
   const {
     name,
     price,
@@ -14,14 +23,68 @@ const ProductCard = ({ product }:{product:Record<string,any>}) => {
     discount,
     category,
     brand,
+    _id
   } = product;
-
+  const token=useAppSelector(useCurrentToken);
+    const dispatch=useAppDispatch();
+    let user:DecodedToken | null=null;
+    if(token)
+    {
+        user=verifyToken(token);
+    }
   const handleAddToCart = () => {
-    toast.success("Product added to your cart!");
+   if (!user) {
+           toast.error("Sign in before adding to cart!");
+           return;
+         }
+   
+         try {
+           dispatch(
+             addToCart({
+               product: _id,
+               name,
+               price,
+               quantity: 1,
+               stock: stockQuantity,
+               image: productImg,
+               userEmail: user?.email,
+             })
+           );
+           toast.success("Product added to your cart!");
+         } catch {
+           toast.error("Failed to add product to cart!");
+         }
   };
 
   const handleBuyNow = () => {
-    toast.success("Proceeding to checkout!");
+      if (!user) {
+            toast.error("Sign in before purchasing!");
+            navigate("/login");
+            return;
+          }
+    
+          if (user?.role !== "user" && user?.role !== "admin") {
+            toast.error("Unauthorized action!");
+            return;
+          }
+    
+          try {
+            dispatch(
+              addToCart({
+                product: _id,
+                name,
+                price,
+                quantity: 1,
+                stock: stockQuantity,
+                image: productImg,
+                userEmail: user.email,
+              })
+            );
+            toast.success("Product added to your cart!");
+            navigate("/cart");
+          } catch {
+            toast.error("Failed to add product to cart!");
+          }
   };
 
   return (

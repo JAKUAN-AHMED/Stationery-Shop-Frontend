@@ -5,8 +5,11 @@ import StationeryProducts from "@/pages/AllProducts/FilteredProducts";
 import ProductDetails from "@/pages/AllProducts/ProductDetails";
 import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
+import Cart from "@/pages/cart/cart";
 import Home from "@/pages/Home/Home";
 import { createBrowserRouter } from "react-router-dom";
+
+import ProtectedRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -23,25 +26,41 @@ const router = createBrowserRouter([
       },
       {
         path: "/product/:id",
-        element: <ProductDetails></ProductDetails>,
+        element: (
+          <ProtectedRoutes role={["admin", "user"]}>
+            <ProductDetails></ProductDetails>
+          </ProtectedRoutes>
+        ),
       },
       {
-        path:"/about",
-        element:<About></About>
+        path: "/about",
+        element: <About></About>,
       },
       {
-        path:'/register',
-        element:<RegisterPage></RegisterPage>
+        path: "/register",
+        element: <RegisterPage></RegisterPage>,
       },
       {
-        path:'/login',
-        element:<LoginPage></LoginPage>
-      }
+        path: "/cart",
+        element: (
+          <ProtectedRoutes role={["admin", "user"]}>
+            <Cart></Cart>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/login",
+        element: <LoginPage></LoginPage>,
+      },
     ],
   },
   {
-    path:'/dashboard',
-    element:<Dashboard></Dashboard>
-  }
+    path: "/dashboard",
+    element: (
+      <ProtectedRoutes role={["user", "admin"]}>
+        <Dashboard></Dashboard>
+      </ProtectedRoutes>
+    ),
+  },
 ]);
 export default router;

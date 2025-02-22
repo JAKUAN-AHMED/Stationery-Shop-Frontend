@@ -17,10 +17,9 @@ const RegisterPage = () => {
       email: data.email,
       password: data.password,
     };
-    console.log(formData,'formData');
+
     try{
       const response = await signUp(formData);
-      console.log(response,'response');
       if(response?.data){
         toast.success(response?.data?.message, {id:toastId});
         navigate("/login");

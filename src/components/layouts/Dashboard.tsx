@@ -2,7 +2,7 @@ import { useCurrentToken } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { verifyToken } from "@/utils/verifyToken";
 import DashboardLayout from "./DashboardLayout";
-
+import UserLayout from "./userDashboardLayout";
 
 const Dashboard = () => {
     const token=useAppSelector(useCurrentToken);
@@ -11,13 +11,13 @@ const Dashboard = () => {
         user=verifyToken(token);
     }
     return (
-        <div>
-            {
-                user?.role==='admin'?
-                <DashboardLayout></DashboardLayout>:
-                <h1>Not Authorized</h1>
-            }
-        </div>
+      <div>
+        {user?.role === "admin" ? (
+          <DashboardLayout></DashboardLayout>
+        ) : (
+          <UserLayout></UserLayout>
+        )}
+      </div>
     );
 };
 

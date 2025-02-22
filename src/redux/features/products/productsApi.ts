@@ -23,7 +23,7 @@ const productsApi=baseApi.injectEndpoints({
             },
             providesTags:["product"],
             transformResponse:(response:TReponseRedux<{result:TProducts[]}>)=>{
-                                console.log('response from productApi',response);
+                            
                                 return {
                                     data:response?.data?.result,
                                     meta:response?.data,

@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./../../styles/styles.css";
 
-import banner1 from './../../assets/images/image1.jpg';
+import banner1 from './../../assets/images/imag1.jpg';
 import banner2 from './../../assets/images/image2.jpg';
 import banner3 from './../../assets/images/image3.jpg';
 import banner4 from './../../assets/images/image4.jpg';

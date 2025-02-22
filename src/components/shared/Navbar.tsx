@@ -8,12 +8,11 @@ import { Input } from "../ui/input";
 import { DropdownMenu, DropdownMenuContent,  DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { BiLogOut } from "react-icons/bi";
 import {MdOutlineSpaceDashboard } from "react-icons/md";
-import { RiLoginBoxLine } from "react-icons/ri";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import Mode_toggler from "../mode-toggler/Mode_toggler";
 
-import { useAppSelector } from "@/redux/hooks";
-import { useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logOut, useCurrentToken } from "@/redux/features/auth/authSlice";
 import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import { verifyToken } from "@/utils/verifyToken";
 
@@ -23,24 +22,25 @@ const Navbar = () => {
   
   const token=useAppSelector(useCurrentToken);
   const cartData=useAppSelector(state=>state?.cart);
+  const dispacth=useAppDispatch();
 
   const {data:myData}=useGetMeQuery(undefined);
-  console.log(myData);
   const  initials:string=myData?.data?.name;
    
   let user:any;
   if(token){
     user=verifyToken(token);
   }
-  console.log(user?.role);
-  console.log(cartData,'cardData');
- const cartCount=cartData?.items.length;
+
+ const cartCount=cartData?.items[0]?.quantity || 0;
 
 
-  const dashboardLink=user?.role==="admin"? "/dashboard":user?.role==="user"?"/dashboard/profile":"/";
+  const dashboardLink=user?.role==="admin"? "/dashboard":user?.role==="user"?"/dashboard":"/";
 
+  const handleLogOut=()=>{
+    dispacth(logOut());
+  }
   
-
   const [position, setPosition] =useState("bottom");
   return (
     <nav className="bg-gray-200 dark:bg-gray-900 text-black dark:text-white  font-orbitron border-2 border-radius-2xl  overflow-hidden shadow-lg z-10 w-full">
@@ -123,7 +123,7 @@ const Navbar = () => {
 
                     <DropdownMenuRadioItem value="right">
                       {/* log out */}
-                      <Button variant={"outline"}>
+                      <Button onClick={handleLogOut} variant={"outline"}>
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger>

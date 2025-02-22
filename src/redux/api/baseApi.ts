@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
-    console.log(token, "token from baseQuery");
+ 
     if (token) {
       headers.set("authorization", `${token}`);
     }
@@ -31,7 +31,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log("baseQueryrefreshtoken", result);
+  
 
   if (result.error?.status == 404) {
     toast.error((result?.error.data as { message: string }).message);

@@ -77,10 +77,9 @@ const AddProducts = () => {
     if (data.productImg && data.productImg[0]) {
       formData.append("file", data.productImg[0]);
     }
-    console.log(formData,'formdata');
+
     try {
       const res = await addProduct(formData);
-      console.log("response", res);
 
       if (res.data) {
         toast.success(res.data.message, { id: toastId });

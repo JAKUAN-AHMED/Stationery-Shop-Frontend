@@ -30,7 +30,7 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["user"],
       transformResponse: (response: TReponseRedux<TUser[]>) => {
-        console.log("response_api from auth api", response);
+        
         return {
           data: response?.data,
           meta: response.meta,
@@ -46,7 +46,7 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["user"],
       transformResponse: (response: TReponseRedux<TUser[]>) => {
-        console.log("response_api from auth api", response);
+       
         return {
           data: response?.data,
           meta: response.meta,

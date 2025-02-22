@@ -2,6 +2,7 @@
 import {Img} from "react-image";
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 export const Card = React.memo(
   ({
@@ -48,6 +49,7 @@ Card.displayName = "Card";
 type Card = {
   title: string;
   src: string;
+  id:string
 };
 
 export function FocusCards({ cards }: { cards: Card[] }) {
@@ -56,13 +58,15 @@ export function FocusCards({ cards }: { cards: Card[] }) {
   return (
     <div className="grid font-orbitron grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto md:px-8 w-full">
       {cards.map((card, index) => (
-        <Card
-          key={card.title}
-          card={card}
-          index={index}
-          hovered={hovered}
-          setHovered={setHovered}
-        />
+        <Link to={`/product/${card.id}`}>
+          <Card
+            key={card.title}
+            card={card}
+            index={index}
+            hovered={hovered}
+            setHovered={setHovered}
+          />
+        </Link>
       ))}
     </div>
   );
