@@ -4,7 +4,7 @@ import moment from "moment";
 import { Button } from "../ui/button";
 
 const ProductCard = ({ product }:{product:Record<string,any>}) => {
-    console.log(product,'productCard');
+    // console.log(product,'productCard');
   const {
     name,
     price,

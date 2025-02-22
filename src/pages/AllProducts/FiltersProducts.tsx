@@ -7,7 +7,7 @@ const FiltersProducts = ({ setFilterQuery }: any) => {
   ) => {
     const { name, value } = e.target;
 
-    console.log("onChange", name, value);
+    // console.log("onChange", name, value);
 
     setFilterQuery((prevParams: any) => {
       const updateQuery = prevParams ? [...prevParams] : [];

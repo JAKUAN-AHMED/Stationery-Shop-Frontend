@@ -10,52 +10,36 @@ import { BiLogOut } from "react-icons/bi";
 import {MdOutlineSpaceDashboard } from "react-icons/md";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import Mode_toggler from "../mode-toggler/mode_toggler";
+import Mode_toggler from "../mode-toggler/Mode_toggler";
 
-// import { useAppSelector } from "@/redux/hooks";
-// import { useCurrentToken } from "@/redux/features/auth/authSlice";
-// import { useGetMeQuery } from "@/redux/features/auth/authApi";
-// import { verifyToken } from "@/utils/verifyToken";
+import { useAppSelector } from "@/redux/hooks";
+import { useCurrentToken } from "@/redux/features/auth/authSlice";
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
+import { verifyToken } from "@/utils/verifyToken";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   
-  // const token=useAppSelector(useCurrentToken);
-  // const cartData=useAppSelector(state=>state.cart);
+  const token=useAppSelector(useCurrentToken);
+  const cartData=useAppSelector(state=>state?.cart);
 
-  // const {data:myData}=useGetMeQuery(undefined);
-  // console.log(myData);
-  // const name=myData?.data?.name;
-
-  // let initials:string="";
-  // if(name){
-  //   const names=name.split(" ");
-  //   const firtPart=names[0].charAt(0);
-  //   const lastPart=names[firtPart.length-1].charAt(0);
-  //   initials=`${firtPart}${lastPart
-  //   }`;
-  // }
-  // // check user exist or not
-  // let user:any;
-  // if(token){
-  //   user=verifyToken(token);
-  // }
-
-  // const userBaseCartsProducts=cartData?.items.filter((item)=>item.userEmail===user?.email);
+  const {data:myData}=useGetMeQuery(undefined);
+  console.log(myData);
+  const  initials:string=myData?.data?.name;
+   
+  let user:any;
+  if(token){
+    user=verifyToken(token);
+  }
+  console.log(user?.role);
+  console.log(cartData,'cardData');
+ const cartCount=cartData?.items.length;
 
 
-  // const dashboardLink=user?.role==="admin"? "/dashboard/admin-dashboard":user?.role==="user"?"/dashboard/profile":"/";
+  const dashboardLink=user?.role==="admin"? "/dashboard":user?.role==="user"?"/dashboard/profile":"/";
 
-
-  // let user2={
-  //   name:"John Doe",
-  //   email:"jakuanultimate777@gmail.com",
-  //   role:"admin",
-  //   iat:163234234,
-  // };
-  // user2=null;
-  const user2=null;
+  
 
   const [position, setPosition] =useState("bottom");
   return (
@@ -85,16 +69,27 @@ const Navbar = () => {
           <Link to="/cart" className="relative">
             <ShoppingCart size={20} />
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              0
+              {cartCount}
             </span>
           </Link>
 
-          {user2 ? (
+          {user ? (
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">
-                    <User size={28} />
+                  <Button variant={'default'}>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <User size={28} />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="font-orbitron font-bold uppercase">
+                            {initials}
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 font-orbitron">
@@ -104,41 +99,26 @@ const Navbar = () => {
                     value={position}
                     onValueChange={setPosition}
                   >
-                    <DropdownMenuRadioItem value="left">
-                      {/* log in */}
-                      <Button variant={"outline"}>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              {/* <BiLogOut /> */}
-                              <RiLoginBoxLine className="text-blue-700" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="font-bold font-orbitron">
-                                Register
-                              </p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </Button>
-                    </DropdownMenuRadioItem>
+                    
                     <DropdownMenuRadioItem value="bottom">
                       {/* dashboard */}
 
-                      <Button variant={"outline"}>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <MdOutlineSpaceDashboard className="text-blue-700" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="font-bold font-orbitron">
-                                Dashboard
-                              </p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </Button>
+                      <Link to={dashboardLink}>
+                        <Button variant={"outline"}>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <MdOutlineSpaceDashboard className="text-blue-700" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="font-bold font-orbitron">
+                                  Dashboard
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </Button>
+                      </Link>
                     </DropdownMenuRadioItem>
 
                     <DropdownMenuRadioItem value="right">
@@ -177,9 +157,6 @@ const Navbar = () => {
         </div>
       </div>
 
-
-
-          
       {/* mobile */}
       {isOpen && (
         <div className="lg:hidden bg-white shadow-md">

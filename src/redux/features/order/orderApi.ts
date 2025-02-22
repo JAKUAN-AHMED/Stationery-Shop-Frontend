@@ -26,7 +26,7 @@ const orderApi=baseApi.injectEndpoints({
                 transformResponse:(response:TReponseRedux<{result:Order[]}>)=>{
                     console.log('response from orderApi',response);
                     return {
-                        data:response?.data?.result,
+                        data:response?.data?.order,
                         meta:response?.data,
 
                     }

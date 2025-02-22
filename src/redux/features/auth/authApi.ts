@@ -1,6 +1,6 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { TUser } from "./authSlice";
 import { TReponseRedux } from "@/types/globalTypes";
+import { TUser } from "@/types/userTypes";
 
 
 
