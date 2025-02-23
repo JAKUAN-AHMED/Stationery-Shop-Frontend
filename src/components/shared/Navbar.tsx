@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// @typescript-eslint/no-explicit-any
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingCart, User } from "lucide-react";
@@ -25,7 +27,7 @@ const Navbar = () => {
   const dispacth=useAppDispatch();
 
   const {data:myData}=useGetMeQuery(undefined);
-  const  initials:string=myData?.data?.name;
+  const  initials:string=myData?.data?.name as string;
    
   let user:any;
   if(token){

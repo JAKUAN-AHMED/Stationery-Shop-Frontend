@@ -6,7 +6,8 @@ import { RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { persistor, store } from './redux/store'
 import { PersistGate } from "redux-persist/integration/react";
-import { ThemeProvider } from './components/themProvider/theme-provider'
+import { ThemeProvider } from './components/themProvider/Theme_provider'
+
 
 
 

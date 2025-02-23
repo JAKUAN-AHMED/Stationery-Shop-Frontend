@@ -63,7 +63,7 @@ export default function OrderVerification() {
     return <div>No order data available</div>;
   }
 
-  const orderData = data;
+  const orderData:OrderData = data;
 
   return (
     <div className="container mx-auto p-4">

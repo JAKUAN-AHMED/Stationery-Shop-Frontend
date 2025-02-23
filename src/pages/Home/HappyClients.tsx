@@ -28,7 +28,7 @@ const HappyClients = () => {
     }
   ];
 
-  const getStars = (rating) => {
+  const getStars = (rating:number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {

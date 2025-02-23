@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { useTheme } from "../themProvider/theme-provider";
+import { useTheme } from "../themProvider/Theme_provider";
 import clsx from "clsx";
 
 

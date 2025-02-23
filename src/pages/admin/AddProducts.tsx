@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Store, Check } from "lucide-react";
 import { useAddProductMutation } from "@/redux/features/products/productsApi";
+import { TProducts } from "@/types/productTypes";
 
 const defaultValues = {
   name: "Colorful Sticky Notes",
@@ -46,8 +47,8 @@ const AddProducts = () => {
     defaultValues,
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
-    let toastId = toast.loading("Loading...");
+  const onSubmit: SubmitHandler<FieldValues> = async (data: Partial<TProducts>) => {
+    const toastId=toast.loading("Loading...");
     const productData = {
       name: data.name,
       author: data.author,
@@ -72,7 +73,7 @@ const AddProducts = () => {
               : new Date().toISOString(),
           }
         : undefined,
-      productImg: data.productImg[0],
+      productImg: data.productImg && data.productImg[0] ? data.productImg[0] as string : undefined,
     };
     const stringifyData=JSON.stringify(productData);
     // const formData = new FormData();
