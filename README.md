@@ -1,50 +1,146 @@
-# React + TypeScript + Vite
+# 🖋️ Ethereal Stationery Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Ethereal Stationery Shop](https://via.placeholder.com/1200x400?text=Ethereal+Stationery+Shop)
 
-Currently, two official plugins are available:
+## 🌟 Project Overview
+**Ethereal Stationery Shop** is a modern and responsive e-commerce platform that allows users to browse, purchase, and manage stationery products. It features secure authentication, a user-friendly interface, and a role-based dashboard for seamless product management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 **Live Demo:** [Ethereal Stationery Shop](https://ethereal-frontend-mauve.vercel.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Tech Stack
+### **Frontend:**
+- ⚛ **React**
+- 🟦 **Redux Toolkit & RTK Query**
+- 💅 **Ant Design, ShadCN, Accernity UI, Lucide-React**
+- 🎨 **Magic UI, Framer Motion**
+- ✅ **React-Hook-Form**
+- ⚡ **Tailwind CSS**
 
-- Configure the top-level `parserOptions` property like this:
+### **Backend:**
+- 🟢 **Node.js & Express.js**
+- 🟠 **MongoDB & Mongoose**
+- 🔐 **JWT Authentication & Role-Based Authorization**
+- 💳 **ShurjoPay Payment Integration**
+- 📐 **MVC Design Pattern**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### **Deployment:**
+- ☁️ **Frontend:** Vercel
+- 🌍 **Backend:** Render
+
+---
+
+## 📌 Features
+### 🔐 **Authentication & Authorization**
+- Secure **JWT-based authentication**.
+- Role-based access (**Admin/User**).
+- Protected routes for authorized users.
+
+### 🏡 **Public Pages**
+- **Home Page:** Interactive banner, featured products, testimonials, and blogs.
+- **All Products Page:** Search, filter by price, category, availability.
+- **Product Details Page:** Full product description with an **Add to Cart** button.
+- **About Page:** Informative section about the shop's mission.
+
+### 🛒 **User Dashboard**
+- View past orders.
+- Manage profile and shipping address.
+
+### 🛠️ **Admin Dashboard**
+- **Manage Users:** Activate/deactivate accounts.
+- **Manage Products:** Create, Read, Update, Delete (CRUD operations).
+- **Manage Orders:** Approve orders and update status from **Pending** to **Shipping**.
+
+### 💳 **Order & Payment**
+- **Cart System:** Users can add/remove products.
+- **Order Management:** Validates stock before confirming purchase.
+- **Payment Integration:** Seamlessly integrated **ShurjoPay**.
+
+### 📱 **Responsive & Optimized UI/UX**
+- **Fully responsive** across devices.
+- **Loading states & toasts** for smooth user feedback.
+- **Error handling** for login, registration, and stock issues.
+
+---
+
+## 🛠️ Installation & Setup
+### **1️⃣ Clone the Repository**
+```bash
+ git clone https://github.com/your-username/ethereal-stationery-shop.git
+ cd ethereal-stationery-shop
+```
+### **2️⃣ Install Dependencies**
+```bash
+ npm install  # For frontend
+ cd backend && npm install  # For backend
+```
+### **3️⃣ Environment Variables**
+Create a **.env** file in the backend folder and configure the following:
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+SHURJOPAY_KEY=your_shurjopay_key
+```
+### **4️⃣ Run the Application**
+```bash
+# Start the backend server
+cd backend && npm run dev
+
+# Start the frontend
+cd frontend && npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 📌 ER Diagram & Project Structure
+### **Entity Relationship Diagram (ERD)**
+![ER Diagram](https://via.placeholder.com/800x400?text=ER+Diagram+of+Stationery+Shop)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### **Backend Structure (MVC Pattern)**
 ```
+📂 backend
+ ┣ 📂 controllers
+ ┣ 📂 models
+ ┣ 📂 routes
+ ┣ 📂 middleware
+ ┣ 📂 config
+ ┗ server.js
+```
+### **Frontend Structure**
+```
+📂 frontend
+ ┣ 📂 components
+ ┣ 📂 pages
+ ┣ 📂 redux
+ ┣ 📂 hooks
+ ┣ 📂 assets
+ ┗ main.tsx
+```
+---
+
+## 🎯 Achievements & Challenges
+- ✅ **70+ Hours of Development** 🚀
+- 🎨 **Focused on UI Implementation (Most Time-Consuming)**
+- 🔧 **Overcame authentication & role-based access challenges**
+- 💡 **Learned Redux Toolkit & RTK Query from scratch**
+
+---
+
+## 📜 License
+This project is open-source and available under the **MIT License**.
+
+---
+
+## ❤️ Special Thanks
+A huge thank you to all open-source contributors and library creators that made this project possible!
+
+### 📩 **Contact & Support**
+📧 Email: **your-email@example.com**  
+🔗 GitHub: [Your GitHub Profile](https://github.com/your-username)  
+🐦 Twitter: [@yourhandle](https://twitter.com/yourhandle)
+
+---
+
+⭐ **If you liked this project, don’t forget to give it a star!** ⭐
+
