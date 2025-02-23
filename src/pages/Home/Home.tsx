@@ -1,4 +1,4 @@
-import Banner from "./Banner";
+import Banner from  "./Banner.tsx";
 import Commitment from "./Commitment";
 import FeaturedProducts from "./FeaturedProducts";
 import HappyClients from "./HappyClients";

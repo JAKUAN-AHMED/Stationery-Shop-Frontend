@@ -13,11 +13,11 @@ import { toast } from "sonner";
 import { logOut, setUser } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://ethereal-beryl.vercel.app/api",
+  baseUrl: "https://ethereal-backend-rho.vercel.app/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
- 
+
     if (token) {
       headers.set("authorization", `${token}`);
     }
@@ -38,10 +38,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   }
 
   if (result.error?.status == 401) {
-    const res = await fetch("http://localhost:2000/api/auth/refresh-token", {
-      method: "POST",
-      credentials: "include",
-    });
+    const res = await fetch(
+      "https://ethereal-backend-rho.vercel.app/api/auth/refresh-token",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     if (data?.data?.token) {
       const user = (api.getState() as RootState).auth.user;
@@ -63,6 +66,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["product", "user", "create-product","getUsers", "orders"],
+  tagTypes: ["product", "user","getUsers", "orders"],
   endpoints: () => ({}),
 });

@@ -2,14 +2,20 @@ import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import { UserRoundPen } from "lucide-react";
 import image from "./../../assets/images/myself.jpg";
 import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
+
 
 const MyProfile = () => {
-  const { data: myDataInfo } = useGetMeQuery(undefined, {
+  const { data:myData,isLoading } = useGetMeQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
-
-  const { name, email, role, phone, address, city, country, postalCode } =
-    myDataInfo?.data || {};
+  
+if(isLoading)
+{
+  return <p>Loading........</p>
+}
+  const {name,email,role,country,city,phone,postalCode,address}=myData?.data || {};
+  
 
   return (
     <>
@@ -25,15 +31,15 @@ const MyProfile = () => {
             </div>
             <div className=" space-y-  font-medium text-sm">
               <h2 className="text-3xl  text-primary-text">
-                {name?.charAt(0)?.toUpperCase() + name?.slice(1)}
+                {(name ?? "").charAt(0).toUpperCase() + (name ?? "").slice(1)}
               </h2>
               <p className=" text-foreground">
-                Role: {role?.charAt(0).toUpperCase() + role?.slice(1)}
+                Role: {(role ?? "N/A").charAt(0).toUpperCase() + (role ?? "N/A").slice(1)}
               </p>
               <p className=" text-foreground">
-                {city?.charAt(0).toUpperCase() + city?.slice(1)},
-                {country != "N/A"
-                  ? country?.charAt(0).toUpperCase() + country?.slice(1)
+                {(city ?? "N/A").charAt(0).toUpperCase() + (city ?? "N/A").slice(1)},
+                {country && country !== "N/A"
+                  ? country.charAt(0).toUpperCase() + country.slice(1)
                   : ""}
               </p>
             </div>
@@ -63,7 +69,7 @@ const MyProfile = () => {
                   First Name
                 </label>
                 <h4 className=" text-md font-medium text-primary-text mt-1">
-                  {name?.charAt(0).toUpperCase() + name?.slice(1)}
+                  {(name ?? "N/A").charAt(0).toUpperCase() + (name ?? "N/A").slice(1)}
                 </h4>
               </div>
               <div>
@@ -99,7 +105,7 @@ const MyProfile = () => {
         <section className="mt-8 border rounded-2xl border-neutral-200 p-4">
           <div className=" flex items-center justify-start">
             <h2 className=" text-lg font-semibold text-primary-text">
-              Address
+              {address}
             </h2>
           </div>
           <div className=" mt-6 grid grid-cols-1 md:grid-cols-2">
@@ -109,7 +115,7 @@ const MyProfile = () => {
                   Country
                 </label>
                 <h4 className=" text-md font-medium text-primary-text mt-1">
-                  {country?.charAt(0).toUpperCase() + country?.slice(1)}
+                  {(country ?? "N/A").charAt(0).toUpperCase() + (country ?? "N/A").slice(1)}
                 </h4>
               </div>
               <div>
@@ -127,15 +133,15 @@ const MyProfile = () => {
                   City/State
                 </label>
                 <h4 className=" text-md font-medium text-primary-text mt-1">
-                  {city?.charAt(0).toUpperCase() + city?.slice(1)}
+                  {(city ?? "N/A").charAt(0).toUpperCase() + (city ?? "N/A").slice(1)}
                 </h4>
               </div>
               <div>
-                <label className=" font-medium text-foreground text-sm">
+                <Label className=" font-medium text-foreground text-sm">
                   Address
-                </label>
+                </Label>
                 <h4 className=" text-md font-medium text-primary-text mt-1">
-                  {address?.charAt(0).toUpperCase() + address?.slice(1)}
+                  {(address ?? "N/A").charAt(0).toUpperCase() + (address ?? "N/A").slice(1)}
                 </h4>
               </div>
             </div>

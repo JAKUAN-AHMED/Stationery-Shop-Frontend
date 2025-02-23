@@ -16,9 +16,7 @@ const StationeryProducts = () => {
     isLoading,
     error,
   } = useGetAllProductsQuery(filterQuery);
-  console.log(filterQuery);
   const products = productsData?.data || [];
-
   return (
     <div className="container mx-auto p-4 overflow-hidden">
       {/* Filters Section */}
@@ -30,7 +28,7 @@ const StationeryProducts = () => {
           <p className="text-center text-lg font-semibold text-gray-500">
             Loading products...
           </p>
-        ) : error?.status===404 ? (
+        ) : error?(
           <div className="flex flex-col items-center justify-center col-span-3 text-center mt-10">
             <img
               src="/no-products.svg"

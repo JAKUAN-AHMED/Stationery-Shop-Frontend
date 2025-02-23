@@ -1,4 +1,6 @@
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,9 +10,9 @@ import {
   Phone,
   MapPin,
   Globe,
-  Pencil,
   Asterisk,
   RefreshCw,
+  Pencil,
 } from "lucide-react";
 import {
   useGetMeQuery,
@@ -18,10 +20,42 @@ import {
 } from "@/redux/features/auth/authApi";
 import { toast } from "sonner";
 
+type ProfileFormData = {
+  id: string;
+  name: string;
+  phone: string;
+  address: string;
+  city: string;
+  country: string;
+  postalCode: string;
+};
+
+// FormField Component
+const FormField = ({ label, id, icon, register, errors, placeholder }: any) => {
+  return (
+    <div className="relative">
+      <Label className="text-gray-700 font-medium" htmlFor={id}>
+        {label}
+      </Label>
+      <div className="absolute left-4 top-10 text-gray-500">{icon}</div>
+      <Input
+        id={id}
+        {...register(id, { required: `${label} is required` })}
+        className="pl-10 mt-1 border-gray-300 focus:ring-primary focus:border-primary bg-gray-50"
+        placeholder={placeholder}
+      />
+      {errors[id] && (
+        <p className="text-red-500 text-sm mt-1">{errors[id]?.message}</p>
+      )}
+    </div>
+  );
+};
+
 const UpdateProfile = () => {
   const { data: myDataInfo } = useGetMeQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
+
   const getUserInfo = myDataInfo?.data;
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
@@ -29,7 +63,8 @@ const UpdateProfile = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+    setValue,
+  } = useForm<ProfileFormData>({
     defaultValues: {
       name: getUserInfo?.name || "",
       phone: getUserInfo?.phone || "",
@@ -40,7 +75,8 @@ const UpdateProfile = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
+  // Handle form submit
+  const onSubmit: SubmitHandler<ProfileFormData> = async (formData) => {
     const toastId = toast.loading("Updating...");
 
     try {
@@ -50,6 +86,17 @@ const UpdateProfile = () => {
       toast.error("Something went wrong!", { id: toastId });
     }
   };
+
+  useEffect(() => {
+    if (getUserInfo) {
+      setValue("name", getUserInfo.name || "");
+      setValue("phone", getUserInfo.phone || "");
+      setValue("address", getUserInfo.address || "");
+      setValue("city", getUserInfo.city || "");
+      setValue("country", getUserInfo.country || "");
+      setValue("postalCode", getUserInfo.postalCode || "");
+    }
+  }, [getUserInfo, setValue]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
@@ -70,26 +117,15 @@ const UpdateProfile = () => {
               icon: <Asterisk size={18} />,
             },
           ].map(({ label, id, icon }) => (
-            <div key={id} className="relative">
-              <Label className="text-gray-700 font-medium" htmlFor={id}>
-                {label}
-              </Label>
-              <div className="absolute left-4 top-10 text-gray-500">{icon}</div>
-              <Input
-                id={id}
-                {...register(
-                  id,
-                  id === "name" ? { required: `${label} is required` } : {}
-                )}
-                className="pl-10 mt-1 border-gray-300 focus:ring-primary focus:border-primary bg-gray-50"
-                placeholder={`Enter your ${label.toLowerCase()}`}
-              />
-              {errors[id] && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors[id]?.message}
-                </p>
-              )}
-            </div>
+            <FormField
+              key={id}
+              label={label}
+              id={id}
+              icon={icon}
+              register={register}
+              errors={errors}
+              placeholder={`Enter your ${label.toLowerCase()}`}
+            />
           ))}
           <div className="flex justify-center mt-6">
             <Button

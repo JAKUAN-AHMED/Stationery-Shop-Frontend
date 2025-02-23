@@ -77,7 +77,7 @@ const ManageUsers = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {usersInfo?.map((user: TUser) => (
+              {Array.isArray(usersInfo) && usersInfo?.map((user: TUser) => (
                 <TableRow
                   key={user._id}
                   className="border-neutral-400 text-primary-text text-[10px] md:text-[14px] lg:text-sm font-serif"

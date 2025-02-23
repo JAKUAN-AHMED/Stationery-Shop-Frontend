@@ -29,11 +29,11 @@ const authApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["user"],
-      transformResponse: (response: TReponseRedux<TUser[]>) => {
+      transformResponse: (response: TReponseRedux<TUser>) => {
         
         return {
           data: response?.data,
-          meta: response.meta,
+          meta: response?.meta,
         };
       },
     }),
@@ -45,7 +45,7 @@ const authApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["user"],
-      transformResponse: (response: TReponseRedux<TUser[]>) => {
+      transformResponse: (response: TReponseRedux<TUser>) => {
        
         return {
           data: response?.data,

@@ -1,7 +1,7 @@
 import { RootState } from "@/redux/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-interface productState{
+export interface productState{
     filter:Record<string,string>,
     sort:string,
     search:string

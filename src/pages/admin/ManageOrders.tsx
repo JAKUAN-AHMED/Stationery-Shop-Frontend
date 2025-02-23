@@ -31,7 +31,9 @@ const ManageOrders = () => {
     isFetching,
     isLoading,
   } = useGetOrdersQuery(undefined);
-console.log('orderdata',allOrders);
+
+  
+
   const handleStatusChange = async (
     orderId: string,
     currentStatus: string,
@@ -56,7 +58,8 @@ console.log('orderdata',allOrders);
   if (isLoading) {
     return <Loading />;
   }
-
+  const myData = allOrders?.data || [];
+  console.log(allOrders,'mydataaa');
   return (
     <>
       <div>
@@ -87,54 +90,58 @@ console.log('orderdata',allOrders);
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {allOrders?.data?.map((order:any) => (
-                    <TableRow
-                      key={order._id}
-                      className="border-neutral-400 text-primary-text"
-                    >
-                      <TableCell>{order.user}</TableCell>
-                      <TableCell>{order.totalPrice}</TableCell>
-                      <TableCell>{order?.status || 'paid'}</TableCell>
-                      <TableCell>{order?._id || '01223sz'}</TableCell>
-                      <TableCell>{order?.transaction?.sp_code || "99csd"}</TableCell>
-                      <TableCell>{order?.transaction?.method || 'shurjopay'}</TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              className={clsx(
-                                order.status === "Pending" && "text-secondary",
-                                order.status === "Paid" && "text-green-500",
-                                order.status === "Shipped" && "text-blue-500",
-                                order.status === "Completed" && "text-gray-500",
-                                order.status === "Cancelled" && "text-red-500"
-                              )}
-                              size="sm"
-                              disabled={loadingOrderId === order._id}
-                            >
-                              {loadingOrderId === order._id
-                                ? "Updating..."
-                                : order.status}
-                              <ChevronDown className="ml-1 h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent className="bg-primary-bg border-neutral-300">
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleStatusChange(
-                                  order._id,
-                                  order.status,
-                                  "Shipped"
-                                )
-                              }
-                            >
-                              Shipped
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                {Array.isArray(myData) && myData.map((order: any) => (
+                  <TableRow
+                    key={order._id}
+                    className="border-neutral-400 text-primary-text"
+                  >
+                    <TableCell>{order.user}</TableCell>
+                    <TableCell>{order.totalPrice}</TableCell>
+                    <TableCell>{order?.status || "paid"}</TableCell>
+                    <TableCell>{order?._id || "01223sz"}</TableCell>
+                    <TableCell>
+                      {order?.transaction?.sp_code || "99csd"}
+                    </TableCell>
+                    <TableCell>
+                      {order?.transaction?.method || "shurjopay"}
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            className={clsx(
+                              order.status === "Pending" && "text-secondary",
+                              order.status === "Paid" && "text-green-500",
+                              order.status === "Shipped" && "text-blue-500",
+                              order.status === "Completed" && "text-gray-500",
+                              order.status === "Cancelled" && "text-red-500"
+                            )}
+                            size="sm"
+                            disabled={loadingOrderId === order._id}
+                          >
+                            {loadingOrderId === order._id
+                              ? "Updating..."
+                              : order.status}
+                            <ChevronDown className="ml-1 h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="bg-primary-bg border-neutral-300">
+                          <DropdownMenuItem
+                            onClick={() =>
+                              handleStatusChange(
+                                order._id,
+                                order.status,
+                                "Shipped"
+                              )
+                            }
+                          >
+                            Shipped
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </div>
