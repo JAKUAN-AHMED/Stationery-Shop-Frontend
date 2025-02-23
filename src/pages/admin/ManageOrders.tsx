@@ -31,7 +31,7 @@ const ManageOrders = () => {
     isFetching,
     isLoading,
   } = useGetOrdersQuery(undefined);
-
+console.log('orderdata',allOrders);
   const handleStatusChange = async (
     orderId: string,
     currentStatus: string,
@@ -87,10 +87,7 @@ const ManageOrders = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {allOrders?.data
-                  ?.slice()
-                  ?.reverse()
-                  ?.map((order) => (
+                {allOrders?.data?.map((order:any) => (
                     <TableRow
                       key={order._id}
                       className="border-neutral-400 text-primary-text"

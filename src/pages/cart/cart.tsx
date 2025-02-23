@@ -1,6 +1,6 @@
 
 import Container from "@/components/layouts/Contailner";
-import { useGetMeQuery } from "@/redux/features/auth/authApi";
+// import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import {
   placeOrder,
   removeFromCart,
@@ -9,28 +9,29 @@ import {
 import { useCreateOrderMutation } from "@/redux/features/order/orderApi.ts";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Minus, Plus, Trash, ShieldCheck } from "lucide-react";
-import moment from "moment";
+// import moment from "moment";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const { data: userInfo } = useGetMeQuery(undefined);
+  // const { data: userInfo } = useGetMeQuery(undefined);
   const [createOrder, { isLoading, isSuccess, data, isError, error }] =
     useCreateOrderMutation();
   const cartData = useAppSelector((state) => state.cart);
 
   const cartProducts = cartData?.items || [];
-  const userEmail = userInfo?.data?.email;
+  // const userEmail = userInfo?.data?.email;
 
   const userBaseCartProducts = cartData?.items || [];
-  const deliveryDate = moment().add(7, "days").format("ddd MMM D");
+  // const deliveryDate = moment().add(7, "days").format("ddd MMM D");
 
   const handlePlacedOrder = async () => {
+   
     try {
       const res = await createOrder({ products: cartProducts });
-
-      if (res.data.success) {
+      console.log(res,'result');
+      if (res?.data?.success) {
         dispatch(placeOrder());
       } else {
         toast.error("Order placement failed:", res.data.message);
@@ -77,7 +78,7 @@ const Cart = () => {
               >
                 <img
                   className="w-24 h-24 object-cover rounded-md"
-                  src={product?.name}
+                  src={product?.image}
                   alt={product.name}
                 />
                 <div className="flex-1 ml-4">
@@ -137,7 +138,7 @@ const Cart = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Order Summary
             </h2>
-            <div className="flex justify-between font-medium text-gray-700 mb-2">
+            <div className="flex justify-between font-medium text-gray-700 mb-2 text-[10px] md:text-lg">
               <span>Price ({cartProducts.length} items)</span>
               <span>Tk {cartData.totalPrice}</span>
             </div>
@@ -146,11 +147,11 @@ const Cart = () => {
               <span className="text-green-500">Free</span>
             </div>
             <hr className="my-3" />
-            <div className="flex justify-between text-lg font-semibold text-gray-800">
+            <div className="flex justify-between text-[10px] md:text-lg font-semibold text-gray-800">
               <span>Total Amount</span>
               <span>Tk {cartData.totalPrice}</span>
             </div>
-            <div className="mt-4 flex items-center gap-2 text-gray-600 text-sm">
+            <div className="mt-4 flex items-center gap-2 text-gray-600 text-[10px] md:text-sm">
               <ShieldCheck size={20} />
               <p>Safe payments, easy returns, 100% authentic products.</p>
             </div>

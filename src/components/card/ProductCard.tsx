@@ -7,11 +7,12 @@ import { useCurrentToken } from "@/redux/features/auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { TProducts } from "@/types/productTypes";
 interface DecodedToken {
   role: string;
   email?: string;
 }
-const ProductCard = ({ product }:{product:Record<string,any>}) => {
+const ProductCard = ({ product }:{product:TProducts}) => {
    
     const navigate=useNavigate();
   const {
@@ -46,7 +47,7 @@ const ProductCard = ({ product }:{product:Record<string,any>}) => {
                price,
                quantity: 1,
                stock: stockQuantity,
-               image: productImg,
+               image: productImg as string,
                userEmail: user?.email,
              })
            );
@@ -76,7 +77,7 @@ const ProductCard = ({ product }:{product:Record<string,any>}) => {
                 price,
                 quantity: 1,
                 stock: stockQuantity,
-                image: productImg,
+                image: productImg as string,
                 userEmail: user.email,
               })
             );

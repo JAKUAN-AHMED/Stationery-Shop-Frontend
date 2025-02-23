@@ -14,7 +14,10 @@ const StationeryProducts = () => {
     data: productsData,
     isFetching,
     isLoading,
+    error,
   } = useGetAllProductsQuery(filterQuery);
+  console.log(filterQuery);
+  const products = productsData?.data || [];
 
   return (
     <div className="container mx-auto p-4 overflow-hidden">
@@ -24,9 +27,25 @@ const StationeryProducts = () => {
       {/* Product Grid */}
       <div className="grid font-orbitron grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-6">
         {isLoading || isFetching ? (
-          <p>Loading products...</p>
+          <p className="text-center text-lg font-semibold text-gray-500">
+            Loading products...
+          </p>
+        ) : error?.status===404 ? (
+          <div className="flex flex-col items-center justify-center col-span-3 text-center mt-10">
+            <img
+              src="/no-products.svg"
+              alt="No Products"
+              className="w-48 h-48 mb-4"
+            />
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-white">
+              No Products Found
+            </h2>
+            <p className="text-gray-500 dark:text-gray-300">
+              Try adjusting your filters or search for something else.
+            </p>
+          </div>
         ) : (
-          productsData?.data.map((product, index) => (
+          products.map((product, index) => (
             <CardContainer key={index} className="inter-var">
               <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-[20rem] md:w-[20rem] h-[430px] rounded-xl p-4 border">
                 <CardItem
@@ -44,7 +63,7 @@ const StationeryProducts = () => {
                 </CardItem>
                 <CardItem translateZ="100" className="w-full mt-4">
                   <Img
-                    src={product?.productImg}
+                    src={product?.productImg as string}
                     height="1000"
                     width="1000"
                     className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"

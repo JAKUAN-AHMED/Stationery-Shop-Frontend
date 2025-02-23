@@ -10,6 +10,7 @@ import Home from "@/pages/Home/Home";
 import { createBrowserRouter } from "react-router-dom";
 
 import ProtectedRoutes from "./PrivateRoutes";
+import VerifyOrder from "@/pages/cart/VerifyOrder";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             <Cart></Cart>
           </ProtectedRoutes>
         ),
+      },
+      {
+        path:'/orders/verify',
+        element:<VerifyOrder></VerifyOrder>
       },
       {
         path: "/login",

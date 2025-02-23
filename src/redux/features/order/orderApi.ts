@@ -7,7 +7,7 @@ const orderApi=baseApi.injectEndpoints({
     endpoints:(builder)=>({
         createOrder:builder.mutation({
             query:(userInfo)=>({
-                url:"/orders/create-orders",
+                url:"/orders",
                 method:"POST",
                 body:userInfo
             }),
@@ -26,7 +26,7 @@ const orderApi=baseApi.injectEndpoints({
                 transformResponse:(response:TReponseRedux<{result:Order[]}>)=>{
                   
                     return {
-                        data:response?.data?.order,
+                        data:response?.data,
                         meta:response?.data,
 
                     }
@@ -36,8 +36,8 @@ const orderApi=baseApi.injectEndpoints({
         verifyOrder:builder.query({
             query:(order_id)=>{
                 return {
-                    url:"/orders/verify",
-                    params:order_id,
+                    url:"/orders/verification",
+                    params:{order_id},
                     method:"GET"
 
                 }

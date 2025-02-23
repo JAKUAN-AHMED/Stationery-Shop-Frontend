@@ -6,13 +6,13 @@ const FeaturedProducts = () => {
   const { data: productsData } = useGetAllProductsQuery(undefined);
 
   const isFeatured = productsData?.data?.filter(
-    (itm) => itm.isFeatured === false
+    (itm) => itm.isFeatured === true
   );
-
+console.log(isFeatured,'featured');
   const featuredCards =
-    isFeatured?.slice(0,6).map((item) => ({
+    isFeatured?.map((item) => ({
       title: item.name, 
-      src: item.productImg, 
+      src: item.productImg as string, 
       id:item._id
     })) || [];
 

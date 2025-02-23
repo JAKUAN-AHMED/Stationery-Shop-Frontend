@@ -36,6 +36,8 @@ const defaultValues = {
     validUntil: "2025-12-31T23:59:59.000Z",
   },
   status: "available",
+  productImg:
+    "https://res.cloudinary.com/dzhou2pgk/image/upload/v1740090362/shoes.jpg",
 };
 
 const AddProducts = () => {
@@ -70,16 +72,17 @@ const AddProducts = () => {
               : new Date().toISOString(),
           }
         : undefined,
+      productImg: data.productImg[0],
     };
-
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(productData));
-    if (data.productImg && data.productImg[0]) {
-      formData.append("file", data.productImg[0]);
-    }
+    const stringifyData=JSON.stringify(productData);
+    // const formData = new FormData();
+    // formData.append("data", JSON.stringify(productData));
+    // if (data.productImg && data.productImg[0]) {
+    //   formData.append("file", data.productImg[0]);
+    // }
 
     try {
-      const res = await addProduct(formData);
+      const res = await addProduct(stringifyData);
 
       if (res.data) {
         toast.success(res.data.message, { id: toastId });

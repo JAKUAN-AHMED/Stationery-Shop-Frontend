@@ -37,7 +37,7 @@ const productsApi=baseApi.injectEndpoints({
                 method:"POST",
                 data:data
             }),
-            invalidatesTags:['product']
+            invalidatesTags:['create-product']
         })
     })
 })
