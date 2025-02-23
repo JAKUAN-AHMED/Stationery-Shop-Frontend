@@ -27,7 +27,7 @@
 
 ### **Deployment:**
 - ☁️ **Frontend:** Vercel
-- 🌍 **Backend:** Render
+- 🌍 **Backend:** Vercel
 
 ---
 
