@@ -127,18 +127,14 @@ cd frontend && npm run dev
 
 ---
 
-## 📜 License
-This project is open-source and available under the **MIT License**.
-
 ---
 
-## ❤️ Special Thanks
-A huge thank you to all open-source contributors and library creators that made this project possible!
+=
 
 ### 📩 **Contact & Support**
-📧 Email: **your-email@example.com**  
-🔗 GitHub: [Your GitHub Profile](https://github.com/your-username)  
-🐦 Twitter: [@yourhandle](https://twitter.com/yourhandle)
+📧 Email: **jakuanultimate777@gmail.com**  
+🔗 GitHub: [Your GitHub Profile](https://github.com/JAKUAN-AHMED)  
+-
 
 ---
 
